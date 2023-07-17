@@ -1,0 +1,109 @@
+/* Following below codes are used to secure your websites from hackers */
+
+########################################
+Disable file editing in WordPress admin
+define('DISALLOW_FILE_EDIT', true);
+
+########################################
+Disable upload new plugin in WordPress admin
+define('DISALLOW_FILE_MODS', true);
+
+########################################
+Change the file permissions via an FTP/SFTP client
+First, we will set the permissions for files.
+
+For Numeric value type in 644.
+Check the box Recurse into subdirectories.
+Select Apply to files only.
+
+########################################
+Change permissions for folders (directories)
+For Numeric value type in 755.
+Check the box Recurse into subdirectories.
+Select Apply to directories only.
+
+########################################
+Disable file execution in the WordPress uploads folder
+Navigate to wp-content > uploads
+Create a .htaccess file.
+add the below code on .htaccess file.
+Block executables
+<FilesMatch "\.(php|phtml|php3|php4|php5|pl|py|jsp|asp|html|htm|shtml|sh|cgi|suspected)$">
+    deny from all
+</FilesMatch>
+
+
+#######################################
+How to Find a Backdoor in a Hacked WordPress Site and Fix It
+1. Scan for Potentially Malicious Code
+   We recommend Securi & wordfence plugin
+
+2. Search the Uploads Folder for PHP Files
+   find uploads -name "*.php" -print
+
+3. Delete the .htaccess File
+   Some hackers may add redirect codes to your .htaccess file that will send your visitors to a different website.
+   If for some reason it isn’t recreated, then you should go to Settings » Permalinks in your WordPress admin panel. Clicking the ‘Save Changes’ button will save a new .htaccess file.
+
+######################################
+Check the wp-config.php File
+    if there is anything that looks out of place. It might be helpful to compare the file with the default 
+    wp-config-sample.php. You should delete any code that you’re certain doesn’t belong.
+
+######################################
+Make WordPress Login More Secure
+    you should do is add two-factor authentication. This will protect your website against stolen passwords 
+    and brute force attacks.
+
+######################################
+Password Protect WordPress Admin Directory
+    Your WordPress admin area is already protected by your WordPress password. However, adding password protection
+    to your WordPress admin directory adds another layer of security to your website.
+
+    First login to your WordPress hosting cPanel dashboard and then click on ‘Password Protect Directories’ 
+    or ‘Directory Privacy’ icon.
+
+    Next, you will need to select your wp-admin folder, which is normally located inside /public_html/ directory.
+    On the next screen, you need to check the box next to ‘Password protect this directory’ option and provide a 
+    name for the protected directory.
+    After that, click on the save button to set the permissions.
+
+######################################
+Limit Login Access to IP Addresses
+    Another great way to secure WordPress login is by limiting access to specific IP addresses. This tip is 
+    particularly useful if you or just a few trusted users need access to the admin area.
+
+    AuthUserFile /dev/null
+    AuthGroupFile /dev/null
+    AuthName "WordPress Admin Access Control"
+    AuthType Basic
+    <LIMIT GET>
+    order deny,allow
+    deny from all
+    # whitelist Syed's IP address
+    allow from xx.xx.xx.xxx
+    # whitelist David's IP address
+    allow from xx.xx.xx.xxx
+    </LIMIT>
+
+    If you use more than one IP address to access the internet, then make sure you add them as well.
+
+#####################################
+Add Basic HTTP Authentication (htpasswd protection)
+    To set it up manually, you will first need to create a .htpasswd file.
+    Then upload the file to a directory under your wp-admin folder, such as:
+    /public_html/wp-admin/htpasswd/
+
+    Then create a .htaccess file with the following code and upload it to your /wp-admin/ directory. 
+    Make sure you update the directory path and username.
+
+    AuthName "Admins Only"
+    AuthUserFile /code/wp-admin/.htpasswd
+    AuthType basic
+    require user yourusername
+
+    <Files admin-ajax.php>
+    Order allow,deny
+    Allow from all
+    Satisfy any
+    </Files>

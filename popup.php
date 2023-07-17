@@ -2,7 +2,7 @@
   <div class="form-popup-bg_1">
     <div class="form-container">
       <button id="btnCloseForm" class="close-button" onclick="closeForm()">X</button>
-      <?php echo do_shortcode('[contact-form-7 id="2622" title="Request Quote"]');?>
+      [contact-form-7 id="5" title="Contact form 1"]
     </div>
   </div>
 </div>
